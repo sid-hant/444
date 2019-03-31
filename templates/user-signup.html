@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% block content %}
+<div class="container">
+   <div class="row"><br></div>
+      <div class="col-auto align-self-center" style="color:black;">
+         <div class="card" style="background-color: white; border-color:white; border-radius: 20px;">
+            <div class="card-body">
+
+
+            {% if form %}
+
+               <h2 align="center" style="font-size: 300%; color: black;"><b>PHILS</b>|SIGN-UP</h2>               
+               <form class="form-group" method="post" style="color: black; font-size: 50%;">
+                  {% csrf_token %}
+                  {% bootstrap_form form %}
+                  <input type="submit" class="btn btn-outline-success btn-lg btn-block" value="Sign Up" style="border-color: black; color: black;">
+               </form>
+               
+            
+            {% endif %}
+               <a class="btn btn-outline-secondary btn-lg btn-block" href={% url 'user:user-login'%} style="border-color:black; color: black;">Log In</a>
+            </div>
+         </div>
+      </div>
+      <div class="row"><br></div>
+</div>
+{% endblock %}

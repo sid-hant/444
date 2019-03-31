@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block content %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light" style="padding-bottom: 0; background-color: rgb(56,0,60);">
+      <div class="container">
+      
+         <a class="navbar-brand light navbar-title title-nav" href="{% url 'home' %}" style="font-size: 300%; padding-top: 0px; padding-bottom: 14px; color: white;"><b>PHIL'S GRANDSON'S PLACE</b></a>
+        <a href="{% url 'user:user-logout' %}" style="color: white;"><b>LOGOUT</b></a>
+      </div>
+    </nav>
+
+    <br><br>
+
+
+<div class="container">
+
+
+    <div class="container">
+        {% for day in phil_day %}
+        <h2>Night Of: <b>{{ day.startDay }}</b></h2>
+        <h2>Doors Open At: <b>{{ day.startTime }}</b></h2>
+        <h2>Doors Close At: <b>{{ day.endTime }}</b> on <b>{{ day.endDay }}</b></h2>
+        <br>
+
+        <div class="container">
+
+        {% if user.is_staff %}
+        
+
+            {% if confirmSchedule %}
+            
+            <form method="POST">
+               {% bootstrap_form form1 %}
+               {% csrf_token %}
+               <input type="submit" value="RSVP To Work" class="btn btn-lg btn-outline-secondary" style="color: black; border-color: black;">
+            </form>
+
+            
+            
+            {% else %}
+
+            {% for s in staff %}
+
+            <h1><b>You Are Scheduled To Work</b></h1>
+
+            {% endfor %}
+
+            {% endif %}
+            
+
+
+        {% else %}
+
+            {% if confirmArrival %}
+
+            <form method="POST">
+               {% bootstrap_form form %}
+               {% csrf_token %}
+               <input type="submit" value="RSVP To Attend" class="btn btn-lg btn-outline-secondary" style="color: black; border-color: black;">
+            </form>
+
+            {% else %}
+
+            {% for s in arrivals %}
+
+            <h1><b>You Are Arriving At: {{s.time}}</b></h1>
+
+            {% endfor %}
+
+            {% endif %}
+
+        {% endif %}
+        </div>
+
+        {% endfor %}
+
+    </div>
+
+    <br><br>
+
+    <div class="container">
+        <h1><B>CROWD LEVEL</B></h1>
+        {% for key,value in time %}
+            <h5>{{key}}: {{value}}%</h5>
+        {% endfor %}
+    </div>
+
+    <br><br>
+
+    {% if user.is_staff %}
+        <h3>Additional Information:</h3>
+        <h6>Number of People Expected: {{totalPeople}}</h6>
+        <h6>Number of Staff Working: {{allStaff}}</h6>
+
+        <br><br>
+
+    {% endif %}
+
+</div>
+{% endblock %}

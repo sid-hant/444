@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load bootstrap3 %}
+{% load staticfiles %}
+{% block content %}
+
+
+<nav class="navbar navbar-expand-lg navbar-light" style="padding-bottom: 0; background-color: rgb(56,0,60);">
+      <div class="container">
+      
+         <a class="navbar-brand light navbar-title title-nav" href="{% url 'home' %}" style="font-size: 300%; padding-top: 0px; padding-bottom: 14px; color: white;"><b>PHIL'S GRANDSON'S PLACE</b></a>
+        <a href="{% url 'user:user-logout' %}" style="color: white;"><b>LOGOUT</b></a>
+      </div>
+    </nav>
+<div class="container">
+    
+    <br><br>
+
+    <div class="container">
+
+        <div class="row">
+            <div class="col">
+            <h2><b>UPCOMING NIGHTS</b></h2>
+                
+            {% for day in phil_days %}
+
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">NIGHT OF</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title"><a style="color:black;" href={% url 'philday' pk=day.id %}>{{ day.startDay | upper }}</a></h5>
+                </div>
+            </div>
+
+
+
+            {% endfor %}
+
+            </div>
+            <div class="col">
+            <h2><b>YOUR EVENTS</b></h2>
+            
+            {% if user.is_staff %}
+        
+           {% for day in staffSchedule %}
+
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">NIGHT OF</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title"><a style="color:black;" href={% url 'philday' pk=day.day.id %}>{{ day.day }}</a></h5>
+                </div>
+            </div>
+
+
+
+            {% endfor %}
+
+            {% else %}
+
+            {% for day in signedUp %}
+
+            <div class="card border-dark mb-3" style="max-width: 18rem;">
+                <div class="card-header">NIGHT OF</div>
+                <div class="card-body text-dark">
+                    <h5 class="card-title"><a style="color:black;" href={% url 'philday' pk=day.philsDay.id %}>{{ day.philsDay | upper }}</a></h5>
+                </div>
+            </div>
+
+
+
+            {% endfor %}
+
+            {% endif %}
+                
+            </div>
+        
+        </div>
+    </div>
+
+    
+
+
+
+</div>
+{% endblock %}
