@@ -20,7 +20,7 @@ def philDay(request, pk):
     confirmSchedule = False
     confirmArrival = False
     allArrivals = ArrivalTime.objects.filter(philsDay=phil_day[0])
-    time = {"9 PM":0, "10 PM":0, "11 PM":0, "12 PM":0, "1 AM":0, "2 AM":0}
+    time = {"9 PM":0, "10 PM":0, "11 PM":0, "12 AM":0, "1 AM":0, "2 AM":0}
     for a in allArrivals:
         t = str(a.time)[0:2]
         if t == "21":
@@ -30,13 +30,13 @@ def philDay(request, pk):
         elif t == "23":
             time["11 PM"] += 1
         elif t == "00":
-            time["12 PM"] += 1
+            time["12 AM"] += 1
         elif t == "01":
             time["1 AM"] += 1
         elif t == "02":
             time["2 AM"] += 1
     
-    r = {"9 PM":0, "10 PM":0, "11 PM":0, "12 PM":0, "1 AM":0, "2 AM":0}
+    r = {"9 PM":0, "10 PM":0, "11 PM":0, "12 AM":0, "1 AM":0, "2 AM":0}
     for key, value in time.items():
         r[key] = (value/len(allArrivals))*100
     
