@@ -8,9 +8,9 @@ from datetime import datetime
 
 # Create your views here.
 def dashboard(request):
-    day = PhilDay.objects.filter(startDay__gt=datetime.today())
-    signedUp = ArrivalTime.objects.filter(licenseID = request.user).filter(philsDay__startDay__gt=datetime.today())
-    staffSchedule = StaffSchedule.objects.filter(staffID = request.user).filter(day__startDay__gt=datetime.today())
+    day = PhilDay.objects.filter(startDay__gte=datetime.today())
+    signedUp = ArrivalTime.objects.filter(licenseID = request.user).filter(philsDay__startDay__gte=datetime.today())
+    staffSchedule = StaffSchedule.objects.filter(staffID = request.user).filter(day__startDay__gte=datetime.today())
     return render(request, 'dashboard.html', {'phil_days': day, 'signedUp': signedUp, 'staffSchedule': staffSchedule})
 
 def signup(request):
