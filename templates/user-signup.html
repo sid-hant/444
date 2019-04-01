@@ -9,8 +9,8 @@
 
 
             {% if form %}
-
-               <h2 align="center" style="font-size: 300%; color: black;"><b>PHILS</b>|SIGN-UP</h2>               
+               
+               <h2 align="center" style="font-size: 300%; color: black;"><b>PHILS</b>|SIGN-UP{% if alert %}-{{alert}}{% endif %}</h2>               
                <form class="form-group" method="post" style="color: black; font-size: 50%;">
                   {% csrf_token %}
                   {% bootstrap_form form %}

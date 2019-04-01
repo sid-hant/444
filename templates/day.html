@@ -54,6 +54,13 @@
 
         {% else %}
 
+
+            {% if banFlag %}
+
+            <h1><b>You Are Currently Banned</b></h1>
+
+            {% else %}
+
             {% if confirmArrival %}
 
             <form method="POST">
@@ -74,6 +81,8 @@
 
         {% endif %}
         </div>
+
+        {% endif %}
 
         {% endfor %}
 

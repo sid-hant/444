@@ -17,10 +17,16 @@
 
     <div class="container">
 
+        {% if flag %}
+        <h1><b>YOU ARE CURRENTLY BANNED FROM PHILS</b></h1>
+        {% else %}
+
         <div class="row">
             <div class="col">
             <h2><b>UPCOMING NIGHTS</b></h2>
-                
+            
+            
+
             {% for day in phil_days %}
 
             <div class="card border-dark mb-3" style="max-width: 18rem;">
@@ -73,6 +79,7 @@
             </div>
         
         </div>
+        {% endif %}
     </div>
 
     

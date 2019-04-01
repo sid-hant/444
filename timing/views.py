@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from staff.forms import schedule
 from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
+from user.models import Ban
 from staff.models import StaffSchedule
 
 User = get_user_model()
@@ -12,7 +13,11 @@ User = get_user_model()
 # Create your views here.
 
 def philDay(request, pk):
+    banFlag = True
     phil_day = PhilDay.objects.filter(pk=pk)
+    ban = Ban.objects.filter(licenseID=request.user)
+    if len(ban)==0:
+        banFlag = False
     form = addTime()
     form1 = schedule()
     staff = StaffSchedule.objects.filter(day=phil_day[0]).filter(staffID=request.user)
@@ -75,4 +80,4 @@ def philDay(request, pk):
             else:
                 f1.save()
             return HttpResponseRedirect(reverse_lazy('home'))
-    return render(request, 'day.html', {'phil_day': phil_day, 'form': form, 'form1': form1, "confirmSchedule": confirmSchedule, "confirmArrival": confirmArrival, 'staff':staff, 'arrivals':arrivals, 'time':r.items(), "totalPeople": totalPeople, 'allStaff':allStaff})
+    return render(request, 'day.html', {'banFlag':banFlag ,'phil_day': phil_day, 'form': form, 'form1': form1, "confirmSchedule": confirmSchedule, "confirmArrival": confirmArrival, 'staff':staff, 'arrivals':arrivals, 'time':r.items(), "totalPeople": totalPeople, 'allStaff':allStaff})
