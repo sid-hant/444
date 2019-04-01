@@ -23,7 +23,7 @@ def signup(request):
         return HttpResponseRedirect(reverse_lazy('home'))
     else:
         if request.method == 'POST':
-            
+
             form = SignUpForm(request.POST)
             if form.is_valid():
                 user = form.save(commit=False)
@@ -31,10 +31,9 @@ def signup(request):
                 return HttpResponseRedirect(reverse_lazy('home'))
             else:
                 alert = " ERROR INFO WAS NOT VALID"
-                return render(request, 'user-signup.html',{'form': form,'alert': alert})
+                return render(request, 'user-signup.html',{'form': form, 'alert':alert})
         else:
             form = SignUpForm()
             alert = " ERROR INFO WAS NOT VALID"
-            print(alert)
-            return render(request, 'user-signup.html',{'form': form,'alert': alert})
+            return render(request, 'user-signup.html',{'form': form})
         return render(request, 'user-signup.html',{'form': form})
