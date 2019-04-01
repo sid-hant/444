@@ -38,7 +38,10 @@ def philDay(request, pk):
     
     r = {"9 PM":0, "10 PM":0, "11 PM":0, "12 AM":0, "1 AM":0, "2 AM":0}
     for key, value in time.items():
-        r[key] = (value/len(allArrivals))*100
+        if len(allArrivals)==0:
+            r[key] = (value/1)*100
+        else:
+            r[key] = (value/len(allArrivals))*100
     
     totalPeople = len(allArrivals)
     allStaff = len(StaffSchedule.objects.filter(day=phil_day[0]))
