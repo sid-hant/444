@@ -6,7 +6,7 @@ from django.forms import ModelForm, CharField, TextInput
 
 
 class SignUpForm(UserCreationForm):
-    username = CharField( widget=TextInput(attrs={'type':'number'}))
+    username = CharField(label="License ID", widget=TextInput(attrs={'type':'number'}))
     class Meta:
         model = User
         fields = ('username', 'password1', 'password2', 'first_name', 'last_name'  )
